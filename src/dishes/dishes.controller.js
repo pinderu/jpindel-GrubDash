@@ -67,11 +67,11 @@ function dishIdMatches(req, res, next) {
         return res.status(400).json({ error: `Dish id does not match route id. Dish: ${data.id}, Route: ${dishId}` });
     }
 
+    res.locals.dish = data;
     return next();
 }
 
-
-const validateDish = (req, res, next) => {
+function validateDish(req, res, next){
     const { data } = req.body;
 
     if (!data) {
@@ -98,6 +98,7 @@ const validateDish = (req, res, next) => {
         return res.status(400).json({ error: "Dish must include an image_url" });
     }
 
+    res.locals.dish = data;
     next();
 };
 

@@ -72,6 +72,7 @@ function orderIsPending(req, res, next){
         return res.status(400).json({error: `Order ID: ${orderId} is not pending`});
     }
 
+    res.locals.order = orders[index];
     return next();
 }
 
@@ -88,7 +89,7 @@ function orderExists(req, res, next){
 }
 
 
-const validateOrder = (req, res, next) => {
+function validateOrder (req, res, next){
     const { data } = req.body;
     
     if (!data) {
@@ -140,6 +141,7 @@ const validateOrder = (req, res, next) => {
         }
     }
 
+    res.locals.dish = data;
     next();
 };
 
@@ -151,6 +153,7 @@ function orderIdMatches(req, res, next) {
         return res.status(400).json({ error: `Dish id does not match route id. Dish: ${data.id}, Route: ${orderId}` });
     }
 
+    res.locals.data = data;
     return next();
 }
 
